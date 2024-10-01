@@ -181,7 +181,6 @@
 
                 touch $out
               '';
-
         in
         { inherit check-format-and-lint; } // packages
       );
