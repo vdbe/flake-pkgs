@@ -1,0 +1,38 @@
+name: Update
+
+on:
+  schedule:
+    # run every friday
+    - cron: "0 0 * * 5"
+  workflow_dispatch:
+
+jobs:
+  pacakges:
+    name: Update packages
+    runs-on: ubutu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@V29
+
+      - name: Setup git user
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Update packages
+        run: |
+          nix run .#update-packages -- --keep-going --commit --skip-prompt
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          delete-branch: true
+          title: "chore: update packages"
+          sign-commits: true

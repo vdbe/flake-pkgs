@@ -1,0 +1,6 @@
+# nix build artifacts
+result*
+repl-result-out*
+
+# output files from `update-package`
+*.log
