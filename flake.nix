@@ -1,15 +1,13 @@
 {
-  description = "A very basic flake";
+  description = "My custom nix packages";
+
+  nixConfig = {
+    extra-substituters = [ "https://vdbe.cachix.org" ];
+    extra-trusted-public-keys = [ "vdbe.cachix.org-1:ID9DIbnE6jHyJlQiwS7L7tFULJd1dsxt2ODAWE94nts=" ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
-    # flake only users can ignore this input
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
   };
 
   outputs =
@@ -22,21 +20,6 @@
         nixpkgs.lib.genAttrs lib.systems.flakeExposed (
           system:
           let
-            #   pkgs = (
-            #     import nixpkgs {
-            #       inherit system;
-            #       config.allowUnfree = true;
-            #       overlays = [
-            #         (
-            #           _: prev:
-            #           (prev.lib.attrsets.recursiveUpdate prev ({
-            #             lib.maintainers = import ./maintainers/maintainer-list.nix;
-            #           }))
-            #         )
-            #
-            #       ];
-            #     }
-            #   );
             pkgs = nixpkgs.legacyPackages.${system};
           in
           function pkgs
@@ -202,6 +185,5 @@
         in
         { inherit check-format-and-lint; } // packages
       );
-
     };
 }
