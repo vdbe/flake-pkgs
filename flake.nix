@@ -182,8 +182,17 @@
                 touch $out
               '';
 
+          fail =
+            pkgs.runCommand "fail"
+              {
+                nativeBuildInputs = [ ];
+              }
+              ''
+                exit 1
+              '';
+
         in
-        { inherit check-format-and-lint; } // packages
+        { inherit check-format-and-lint fail; } // packages
       );
     };
 }
