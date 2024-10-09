@@ -1,0 +1,11 @@
+{
+  "sodium": {
+    "hash": "sha256-RM0K+7jubOfeN7qd1LumZrbIJkgUHVbhZpQ50/EcyMU=",
+    "homepage": "https://registry.terraform.io/providers/vdbe/sodium",
+    "owner": "vdbe",
+    "repo": "terraform-provider-sodium",
+    "rev": "v0.1.0",
+    "spdx": "MPL-2.0",
+    "vendorHash" : "sha256-U2jp3Ozog6gCzFO/bmlX3l2JWm62f6Xv4og5nwEvKYg="
+  }
+}
