@@ -67,7 +67,6 @@
       );
     in
     {
-      inherit derivations;
       apps = forAllSystems (
         pkgs:
         let
@@ -146,8 +145,12 @@
           packages = lib.trivial.pipe derivations' [
             (builtins.map (
               { path, package }:
+              let
+                cleanedPath = builtins.replaceStrings [ "." ] [ "_" ] path;
+
+              in
               {
-                name = "package_${path}";
+                name = "package_${cleanedPath}";
                 value = package;
               }
             ))
@@ -183,6 +186,8 @@
               '';
         in
         { inherit check-format-and-lint; } // packages
+        # packages
+        # derivations'
       );
     };
 }

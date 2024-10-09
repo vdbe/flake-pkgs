@@ -1,6 +1,10 @@
-{ newScope, pkgs }:
+{
+  newScope,
+  pkgs,
+  grafanaPlugins,
+}:
 let
-  callPackage = newScope (pkgs // pkgs.grafanaPlugins // plugins);
+  callPackage = newScope (pkgs // grafanaPlugins // plugins);
   plugins = import ./plugins.nix { inherit callPackage; };
 in
 plugins
