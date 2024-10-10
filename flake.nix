@@ -160,18 +160,22 @@
           check-format-and-lint =
             pkgs.runCommand "check-format-and-lint"
               {
-                nativeBuildInputs = [
-                  pkgs.actionlint
-                  pkgs.nixfmt-rfc-style
-                  pkgs.deadnix
-                  pkgs.statix
+                nativeBuildInputs = with pkgs; [
+                  actionlint
+                  deadnix
+                  nixfmt-rfc-style
+                  statix
+                  typos
                 ];
               }
               ''
                 cd ${self}
 
-                # echo "running actionlint..."
-                # actionlint ./.github/workflows/*
+                echo "running typos..."
+                typos --hidden
+
+                echo "running actionlint..."
+                actionlint ./.github/workflows/*
 
                 echo "running nixfmt..."
                 nixfmt --check .
@@ -186,8 +190,6 @@
               '';
         in
         { inherit check-format-and-lint; } // packages
-        # packages
-        # derivations'
       );
     };
 }

@@ -16,7 +16,7 @@ let
 
   providerFile = "./pkgs/terraform-providers/providers.json";
   updateProvider = writeShellApplication {
-    name = "terraform-provider-get-lastest-version";
+    name = "terraform-provider-update";
     runtimeInputs = [
       curlMinimal
       jq
