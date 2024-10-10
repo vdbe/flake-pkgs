@@ -29,7 +29,7 @@ jobs:
   #       uses: DeterminateSystems/nix-installer-action@v11
   #
   #     - name: Setup cache
-  #       uses: DeterminateSystems/magic-nix-cache-action@v6
+  #       uses: DeterminateSystems/magic-nix-cache-action@v8
   #
   #     - name: Setup cachix
   #       uses: cachix/cachix-action@v14
@@ -53,7 +53,7 @@ jobs:
         uses: cachix/install-nix-action@v29
 
       - name: Setup cache
-        uses: DeterminateSystems/magic-nix-cache-action@v6
+        uses: DeterminateSystems/magic-nix-cache-action@v8
 
       - name: Setup cachix
         uses: cachix/cachix-action@v15
