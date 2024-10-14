@@ -1,0 +1,61 @@
+name: Update Lock File
+
+on:
+  schedule:
+    # run every monday and friday
+    - cron: "0 0 * * 1,5"
+  workflow_dispatch:
+
+jobs:
+  lock:
+    name: Update lock file
+    runs-on: ubuntu-latest
+    environment: update
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        # with:
+        #   token: ${{ steps.generate-token.outputs.token }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+
+      - name: Update flake.lock
+        id: update
+        uses: DeterminateSystems/update-flake-lock@v24
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          git-author-name: "${{ steps.generate-token.outputs.app-slug }}[bot]"
+          git-author-email: "${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com"
+          git-committer-name: "${{ steps.generate-token.outputs.app-slug }}[bot]"
+          git-committer-email: "${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com"
+          pr-title: "chore(nix): Update flake.lock"
+          pr-labels: |
+            automated
+            dependencies
+
+      - name: Enable Automerge
+        if: ${{ steps.update.outputs.pull-request-number }}
+        run: |
+          gh pr merge --rebase --auto "$PR_ID"
+        env:
+          PR_ID: ${{ steps.update.outputs.pull-request-number }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}

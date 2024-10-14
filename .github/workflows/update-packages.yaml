@@ -1,4 +1,4 @@
-name: Update
+name: Update Packages
 
 on:
   schedule:
@@ -67,6 +67,9 @@ jobs:
           sign-commits: true
           title: "chore: update packages"
           token: ${{ steps.generate-token.outputs.token }}
+          labels: |
+            automated
+            dependencies
 
       - name: Enable Automerge
         if: ${{ steps.pull-request.outputs.pull-request-number }}
