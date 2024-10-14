@@ -128,6 +128,30 @@
         ) self.legacyPackages.${pkgs.stdenv.hostPlatform.system}
       );
 
+      devShells = forAllSystems (
+        pkgs:
+        let
+          checks = self.checks.${pkgs.stdenv.hostPlatform.system};
+
+          inherit (checks) check-format-and-lint;
+        in
+        {
+          default = pkgs.mkShell {
+            inputsFrom = [ check-format-and-lint ];
+
+            nativeBuildInputs = with pkgs; [
+              # LSPs
+              nixd
+              yaml-language-server
+              vscode-langservers-extracted
+
+              # Tools
+              nix-update
+            ];
+          };
+        }
+      );
+
       legacyPackages = forAllSystems (
         pkgs:
         import ./default.nix {
@@ -142,6 +166,8 @@
         pkgs:
         let
           derivations' = derivations.${pkgs.stdenv.hostPlatform.system};
+          shells' = self.devShells.${pkgs.stdenv.hostPlatform.system};
+
           packages = lib.trivial.pipe derivations' [
             (builtins.map (
               { path, package }:
@@ -156,6 +182,7 @@
             ))
             builtins.listToAttrs
           ];
+          shells = lib.attrsets.mapAttrs' (n: v: lib.attrsets.nameValuePair "shell_${n}" v) shells';
 
           check-format-and-lint =
             pkgs.runCommand "check-format-and-lint"
@@ -189,7 +216,7 @@
                 touch $out
               '';
         in
-        { inherit check-format-and-lint; } // packages
+        { inherit check-format-and-lint; } // shells // packages
       );
     };
 }
