@@ -31,12 +31,7 @@
           legacyPackages = self.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
           getPathFromLegacyPackage = path: lib.attrsets.getAttrFromPath path legacyPackages;
-          filterAttrSet =
-            value:
-            builtins.removeAttrs value [
-              "override"
-              "overrideDerivation"
-            ];
+          filterAttrSet = attr: lib.filterAttrs (_: v: !(lib.isFunction v)) attr;
 
           derivationsToNestedListOfStringPaths =
             path:
@@ -67,6 +62,7 @@
       );
     in
     {
+      inherit derivations;
       apps = forAllSystems (
         pkgs:
         let
@@ -154,9 +150,8 @@
 
       legacyPackages = forAllSystems (
         pkgs:
-        import ./default.nix {
+        import ./packages.nix {
           inherit pkgs lib;
-          flake = true;
         }
       );
 
