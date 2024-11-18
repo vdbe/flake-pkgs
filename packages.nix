@@ -1,8 +1,6 @@
 {
   pkgs,
   lib ? pkgs.lib,
-
-  includeLib ? false,
   ...
 }:
 let
@@ -17,4 +15,4 @@ let
     callPackage = lib.callPackageWith pkgsLib;
   };
 in
-if includeLib then (recursiveUpdate packages { inherit (pkgsLib) lib; }) else packages
+packages

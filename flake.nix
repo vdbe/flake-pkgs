@@ -8,6 +8,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    flake-compat = {
+      url = "github:nix-community/flake-compat";
+      flake = false;
+    };
   };
 
   outputs =
