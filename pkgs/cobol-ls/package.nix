@@ -1,4 +1,5 @@
 {
+  lib,
   maven,
   makeWrapper,
   jre,
@@ -41,5 +42,12 @@ maven.buildMavenPackage rec {
 
   passthru = {
     updateScript = nix-update-script { };
+  };
+
+  meta = {
+    description = "COBOL Language Support";
+    mainProgram = "cobol-language-support";
+    homepage = "https://github.com/eclipse-che4z/che-che4z-lsp-for-cobol";
+    license = lib.licenses.epl20;
   };
 }
