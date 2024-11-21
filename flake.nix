@@ -7,7 +7,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
 
     flake-compat = {
       url = "github:nix-community/flake-compat";
@@ -140,8 +140,8 @@
           default = pkgs.mkShell {
             inputsFrom = [ check-format-and-lint ];
 
-            nativeBuildInputs = with pkgs; [
-              # LSPs
+            packages = with pkgs; [
+              # Language servers
               nixd
               yaml-language-server
               vscode-langservers-extracted
@@ -196,7 +196,7 @@
                 ];
               }
               ''
-                cd ${self}
+                pushd ${self}
 
                 echo "running typos..."
                 typos --hidden
