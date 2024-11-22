@@ -6,6 +6,7 @@
 let
   lock = builtins.fromJSON (builtins.readFile ./flake.lock);
   root = lock.nodes.${lock.root};
+
   inherit (lock.nodes.${root.inputs.flake-compat}.locked)
     owner
     repo
@@ -26,7 +27,10 @@ let
     };
   };
 
+  # default.defaultNix.inputs.nixpkgs.lib
+
   self = flake.defaultNix;
 
+  inherit (self.inputs.nixpkgs) lib;
 in
-self.legacyPackages.${system}
+self.legacyPackages.${system} // { inherit lib; }
