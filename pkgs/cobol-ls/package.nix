@@ -8,17 +8,17 @@
 }:
 maven.buildMavenPackage rec {
   pname = "cobol-ls";
-  version = "2.2.0";
+  version = "2.3.0";
 
   src = fetchFromGitHub {
     owner = "eclipse-che4z";
     repo = "che-che4z-lsp-for-cobol";
     rev = version;
-    hash = "sha256-rW3CPEGhvp9UvNFZQuLHCafMCBV7G7GcnhOSH9YexVI=";
+    hash = "sha256-/NjH89soBIrqEkpppFY5BprWmv6UT5ouL0esoMBGD74=";
   };
   nativeBuildInputs = [ makeWrapper ];
 
-  mvnHash = "sha256-ANYvCo+XWGAJNIKjeOS3KYPEDXwRVmcWl4tuly2tRZE=";
+  mvnHash = "sha256-pZGp/x4AVgsimtj4YSVyBcLiUWOzCmKbSxcZLJcjzCI=";
 
   sourceRoot = "${src.name}/server";
 
