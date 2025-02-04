@@ -3,7 +3,7 @@ name: Update Lock File
 on:
   schedule:
     # run every monday and friday
-    - cron: "0 0 * * 1,5"
+    - cron: "0 0 * * 5"
   workflow_dispatch:
 
 jobs:
