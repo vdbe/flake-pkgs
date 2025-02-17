@@ -1,6 +1,12 @@
 # nix build artifacts
-result*
+result
+result-*
 repl-result-out*
 
 # output files from `update-package`
 *.log
+
+# direnv
+.direnv/
+.env*
+!.env.template
