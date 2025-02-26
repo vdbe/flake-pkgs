@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   nix-update-script,
+  versionCheckHook,
 
   stdenv,
   removeReferencesTo,
@@ -12,9 +13,6 @@
   optimizeSize ? stdenv.hostPlatform.isStatic,
   optimizeWithUpx ? false,
 }:
-let
-  fs = lib.fileset;
-in
 rustPlatform.buildRustPackage rec {
   pname = "sshd-command";
   version = "0.2.0";
@@ -35,6 +33,10 @@ rustPlatform.buildRustPackage rec {
 
   # `-C panic="abort"` breaks checks
   doCheck = !optimizeSize;
+
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = [ "--version" ];
 
   postFixup = toString [
     (lib.optionalString stdenv.hostPlatform.isStatic ''
