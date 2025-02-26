@@ -17,17 +17,17 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "sshd-command";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "vdbe";
     repo = "sshd-command";
     rev = "v${version}";
-    hash = "sha256-+4zmdRp+4ratsb/Iql4kCXUrbXpkm/Pu2QbOqWmrY6w=";
+    hash = "sha256-XFLth0mBX2Lcmqe9PHo16Le+N4wqN8KiqO3i3B4b0f4=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-G+edPAeUEPnsnzjRFLhhXKwhHA4Ly1IxfKD/orz9pyI=";
+  cargoHash = "sha256-W5VVH/krOY+YdSecoK+IyylqoPCUBuHa7cqFZ7j3eKs=";
 
   nativeBuildInputs =
     (lib.optional stdenv.hostPlatform.isStatic removeReferencesTo)
