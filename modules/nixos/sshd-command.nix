@@ -6,7 +6,6 @@
 }:
 let
   inherit (lib) types;
-  commandPrefix = "/etc/";
   commandSuffix = "ssh/scripts/sshd-command";
 
   templateOpts =
@@ -55,7 +54,7 @@ let
         };
 
         extraFrontMatter = lib.mkOption {
-          type = (pkgs.formats.yaml { }).type;
+          inherit (pkgs.formats.yaml { }) type;
           default = { };
         };
 
@@ -105,7 +104,7 @@ let
               else
                 throw "Should never get here"
             )
-            "${commandPrefix}${commandSuffix}"
+            "/etc/${cfg.packagePath}"
             "--"
             config.path
             (lib.strings.concatStringsSep " " config.sshd-command.tokens)
@@ -122,6 +121,11 @@ in
     package = lib.mkPackageOption pkgs "sshd-command" {
       default = null;
     };
+    packagePath = lib.mkOption {
+      type = types.str;
+      default = "${commandSuffix}";
+      description = "path where `package` is placed under /etc";
+    };
     templates = lib.mkOption {
       default = { };
       type = types.attrsOf (types.submodule templateOpts);
@@ -129,7 +133,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.etc."${commandSuffix}" = {
+    environment.etc.${cfg.packagePath} = {
       mode = "0555";
       source = lib.meta.getExe cfg.package;
     };
