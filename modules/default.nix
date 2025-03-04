@@ -1,0 +1,3 @@
+{
+  nixosModules = import ./nixos;
+}

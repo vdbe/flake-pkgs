@@ -65,9 +65,12 @@
         in
         derivationPathsFromPath [ ]
       );
+
+      modules = import ./modules;
     in
     {
-      inherit derivations;
+      inherit (modules) nixosModules;
+
       apps = forAllSystems (
         pkgs:
         let
