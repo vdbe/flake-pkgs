@@ -2,8 +2,8 @@
 
 (grafanaPlugin {
   pname = "grafana-lokiexplore-app";
-  version = "1.0.8";
-  zipHash = "sha256-f7/6qvSoBEaxAj81WyE4MQPQFQe6TWc2P7mbsqRl2kw=";
+  version = "1.0.9";
+  zipHash = "sha256-BuzcJVS6McLR0UYzCiqm2XOniZ7e2PNXf9fX9iRVXSE=";
   meta = with lib; {
     description = "Log explorer plugin for Grafana";
     platforms = platforms.unix;
