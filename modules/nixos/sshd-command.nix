@@ -151,7 +151,7 @@ in
           ];
         }
         ''
-          sshd-command --validate ${template.path}
+          sshd-command --check ${template.path}
           touch $out
         ''
     ) cfg.templates;
