@@ -118,7 +118,10 @@ in
 {
   options.services.openssh.sshd-command = {
     enable = lib.mkEnableOption "sshd-command";
-    package = lib.mkPackageOption pkgs "sshd-command" {
+    package = lib.mkOption {
+      type = lib.types.package;
+      description = "The sshd-command package to use.";
+
       default = pkgs.callPackage ../../pkgs/sshd-command/package.nix { };
     };
     packagePath = lib.mkOption {
