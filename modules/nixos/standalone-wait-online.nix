@@ -119,14 +119,15 @@ in
       }
     ];
 
-    standalone-network-wait-online.extraArgs =
-      [ "--timeout=${toString cfg.timeout}" ]
-      ++ optional opt.interval.isDefined "--interval=${toString cfg.interval}"
-      ++ optional cfg.anyInterface "--any"
-      ++ optional cfg.requireIpv6 "--ipv6"
-      ++ optional cfg.requireIpv4 "--ipv4"
-      ++ map (i: "--ignore=${i}") cfg.ignoredInterfaces
-      ++ map (i: "--interface=${i}") cfg.requiredInterfaces;
+    standalone-network-wait-online.extraArgs = [
+      "--timeout=${toString cfg.timeout}"
+    ]
+    ++ optional opt.interval.isDefined "--interval=${toString cfg.interval}"
+    ++ optional cfg.anyInterface "--any"
+    ++ optional cfg.requireIpv6 "--ipv6"
+    ++ optional cfg.requireIpv4 "--ipv4"
+    ++ map (i: "--ignore=${i}") cfg.ignoredInterfaces
+    ++ map (i: "--interface=${i}") cfg.requiredInterfaces;
 
     systemd.services."network-standalone-wait-online" = {
       enable = true;
