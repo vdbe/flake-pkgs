@@ -16,6 +16,7 @@ grafanaPlugins.grafanaPlugin (
         upstreamUpdateScript
         pname
       ];
-    } // passthru;
+    }
+    // passthru;
   }
 )
