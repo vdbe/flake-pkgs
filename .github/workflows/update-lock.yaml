@@ -40,7 +40,7 @@ jobs:
 
       - name: Update flake.lock
         id: update
-        uses: DeterminateSystems/update-flake-lock@v25
+        uses: DeterminateSystems/update-flake-lock@v27
         with:
           token: ${{ steps.generate-token.outputs.token }}
           git-author-name: "${{ steps.generate-token.outputs.app-slug }}[bot]"
