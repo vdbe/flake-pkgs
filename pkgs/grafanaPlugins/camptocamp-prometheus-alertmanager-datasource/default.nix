@@ -2,8 +2,8 @@
 
 (grafanaPlugin {
   pname = "camptocamp-prometheus-alertmanager-datasource";
-  version = "2.1.0";
-  zipHash = "sha256-6FAknAxf252riwNgCj4V4qEYnD6b39kisIZOlGUjggU=";
+  version = "2.3.1";
+  zipHash = "sha256-C4PNG/qRPjfZwjOIQ2aF915GbxvUE9h3H4uyi4xt84g=";
   meta = {
     license = lib.licenses.asl20;
     description = "Log explorer plugin for Grafana";
