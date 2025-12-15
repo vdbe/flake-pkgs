@@ -57,7 +57,7 @@ jobs:
 
       - name: Create Pull Request
         id: pull-request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           # author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
           author: "${{ steps.generate-token.outputs.app-slug }}[bot] <${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com>"
