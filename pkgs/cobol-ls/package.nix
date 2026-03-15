@@ -18,7 +18,7 @@ maven.buildMavenPackage rec {
   };
   nativeBuildInputs = [ makeWrapper ];
 
-  mvnHash = "sha256-IOmKUbsnB3ulyuO5Rl23HRqfXtvJiCIwa9ZH3HKCqFw=";
+  mvnHash = "sha256-cdiwjh/Q3DiyTlxYIrGLQm565IuN5nNt/KTr3wHUBfc=";
 
   sourceRoot = "${src.name}/server";
 
