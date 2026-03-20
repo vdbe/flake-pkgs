@@ -7,7 +7,7 @@
 }:
 let
   pname = "keymap-drawer";
-  version = "0.22.1";
+  version = "0.23.0";
 in
 python3Packages.buildPythonApplication {
   inherit pname version;
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication {
     owner = "caksoylar";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-X3O5yspEdey03YQ6JsYN/DE9NUiq148u1W6LQpUQ3ns=";
+    hash = "sha256-yrZidTATnOPacAfdk0gFIgH/3MaZqVOjmzkWNnMa01s=";
   };
 
   nativeBuildInputs = [ python3Packages.poetry-core ];
