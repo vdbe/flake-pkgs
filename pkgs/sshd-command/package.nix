@@ -15,17 +15,17 @@
 }:
 rustPlatform.buildRustPackage (final: {
   pname = "sshd-command";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "vdbe";
     repo = "sshd-command";
     rev = "v${final.version}";
-    hash = "sha256-HYtTTfeZUfx/e/q4AsAFWLBTwLEBY/qmNF8wbVu+/HQ=";
+    hash = "sha256-XMMh7eOi/OgV6lF823Bamw2Z3hpaWX+MOeBhHDRIlvU=";
   };
 
   # useFetchCargoVendor = true;
-  cargoHash = "sha256-Ky+Qc5GFXgJEtBnl4/qxSi2HJEpPP4wVMlaBGOJcE4o=";
+  cargoHash = "sha256-bEbw8J3+9NMlsbJyjLPY6KKFvJ5WrBUDQmBsSQqYuaA=";
 
   nativeBuildInputs =
     (lib.optional stdenv.hostPlatform.isStatic removeReferencesTo)
